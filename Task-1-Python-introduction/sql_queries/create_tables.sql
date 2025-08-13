@@ -1,4 +1,9 @@
-CREATE TABLE students IF NOT EXISTS(
+CREATE TABLE IF NOT EXISTS rooms (
+    id  INT PRIMARY KEY,
+    name VARCHAR(15)
+);
+
+CREATE TABLE IF NOT EXISTS students (
     birthday TIMESTAMP,
     id  INT PRIMARY KEY,
     name VARCHAR(255),
@@ -6,9 +11,4 @@ CREATE TABLE students IF NOT EXISTS(
     sex CHAR(1),
 
     FOREIGN KEY (room) REFERENCES rooms(id)
-)
-
-CREATE TABLE rooms IF NOT EXISTS(
-    id  INT PRIMARY KEY,
-    name VARCHAR(15)
-)
+);

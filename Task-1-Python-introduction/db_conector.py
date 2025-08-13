@@ -13,10 +13,14 @@ class Db_connector:
             print('')
             
         
-    def disconect(self):
+    def disconnect(self):
         if self.connection:
             self.connection.close()
+            self.connection = None
             print('connection closed')
         else:
             print('There is no conection to close')
+
+    def get_connection(self):
+        return self.connection
 

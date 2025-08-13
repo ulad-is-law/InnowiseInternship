@@ -6,14 +6,24 @@ class QueryRunner:
 
     def runsql(self, filepath):
         try:
-            with open(filepath, "r") as f:
+            with open(filepath, "r", encoding='utf-8') as f:
                 sql = f.read()
         except FileNotFoundError:
-            print(f"Error: The file at '{filepath}' was not found.")
+            print(f"Ошибка: Файл '{filepath}' не найден.")
+            return
 
-        cursor = self.connection.cursor()
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(sql)
+                
+                if cursor.description:
+                    result = cursor.fetchall()
+                    return result
+                else:
+                    self.connection.commit()
+                    return None
 
+        except (Exception, psycopg2.DatabaseError) as e:
+            self.connection.rollback()
+            print(f"SQL Error: {e}")
+            return None
