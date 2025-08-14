@@ -29,7 +29,8 @@ class Dataloader:
         try:
             df = pd.read_json(filepath, dtype=False)
             if df.empty: return False
-        except (FileNotFoundError, ValueError):
+        except Exception as e:
+            print(f'Error: {e}')
             return False, None
         
         if set(df.columns) != set(target_schema.keys()):
