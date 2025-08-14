@@ -4,7 +4,6 @@ class ResultSaver:
     def save_json(self, data, columns, filepath): 
         try:
             result_list = [dict(zip(columns, row)) for row in data]
-            print(result_list)
             json_file = json.dumps(result_list, default=str, indent=4)
 
             with open(filepath, 'w') as f:

@@ -45,17 +45,6 @@ class Dataloader:
         
         return True, df
    
-    def load_students(self, filepath):
-        is_valid, df = self.is_valid_file(self.SCHEMAS['students'], filepath)
-        if not is_valid:
-            print('validation error')
-            return
-        try:
-           
-            df.to_sql('students', self.engine, if_exists='append', index = False)
-            print("Students json was inserted succesfully")
-        except Exception as e:
-            print(f'Error during inserting! {e}')
 
     def load_file(self, filepath, table):
         if table not in self.SCHEMAS:

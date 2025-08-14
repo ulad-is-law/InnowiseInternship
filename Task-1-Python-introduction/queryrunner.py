@@ -9,7 +9,7 @@ class QueryRunner:
             with open(filepath, "r", encoding='utf-8') as f:
                 sql = f.read()
         except FileNotFoundError:
-            print(f"Ошибка: Файл '{filepath}' не найден.")
+            print(f"FIle '{filepath}' not found.")
             return None, None
 
         try:
@@ -19,6 +19,7 @@ class QueryRunner:
                 if cursor.description:
                     result = cursor.fetchall()
                     column_names = [desc[0] for desc in cursor.description]
+                    print(f'query {filepath} ran succesfully')
                     return result, column_names
                 else:
                     self.connection.commit()
