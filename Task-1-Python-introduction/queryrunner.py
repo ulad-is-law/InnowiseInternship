@@ -10,7 +10,7 @@ class QueryRunner:
                 sql = f.read()
         except FileNotFoundError:
             print(f"Ошибка: Файл '{filepath}' не найден.")
-            return
+            return None, None
 
         try:
             with self.connection.cursor() as cursor:
@@ -18,12 +18,13 @@ class QueryRunner:
                 
                 if cursor.description:
                     result = cursor.fetchall()
-                    return result
+                    column_names = [desc[0] for desc in cursor.description]
+                    return result, column_names
                 else:
                     self.connection.commit()
-                    return None
+                    return None, None
 
         except (Exception, psycopg2.DatabaseError) as e:
             self.connection.rollback()
             print(f"SQL Error: {e}")
-            return None
+            return None, None
