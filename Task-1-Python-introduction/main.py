@@ -19,6 +19,7 @@ def main():
         dl = Dataloader(connection)
         resultsaver = ResultSaver()
         qrunner.runsql("C:/Internship/task1/Task-1-Python-introduction/sql_queries/create_tables.sql")
+        qrunner.runsql("C:/Internship/task1/Task-1-Python-introduction/sql_queries/indexes.sql")
         print('Application is opened correctly!')
     except Exception as e:
         print(f'Error during starting application: {e}')
