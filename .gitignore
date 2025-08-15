@@ -1,0 +1,6 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+pyvenv.cfg
+json_results/*
