@@ -18,7 +18,7 @@ class Dataloader:
         },
     }
 
-    def __init__(self, connection):
+    def __init__(self, connection: dict):
         self.connection = connection
 
         connection_string = (
@@ -27,11 +27,13 @@ class Dataloader:
         )
         self.engine = create_engine(connection_string)
 
-    def is_valid_file(self, target_schema, filepath: str):
+    def is_valid_file(
+        self, target_schema: str, filepath: str
+    ) -> tuple[bool, pd.DataFrame | None]:
         try:
             df = pd.read_json(filepath, dtype=False)
             if df.empty:
-                return False
+                return False, False
         except Exception as e:
             print(f"Error: {e}")
             return False, None
@@ -49,7 +51,7 @@ class Dataloader:
 
         return True, df
 
-    def load_file(self, filepath, table):
+    def load_file(self, filepath: str, table: str):
         if table not in self.SCHEMAS:
             print(f"There is no table {table} in database")
             return

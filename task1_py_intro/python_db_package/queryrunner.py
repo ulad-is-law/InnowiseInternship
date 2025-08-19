@@ -2,10 +2,10 @@ import psycopg2
 
 
 class QueryRunner:
-    def __init__(self, connection):
+    def __init__(self, connection: dict):
         self.connection = connection
 
-    def runsql(self, filepath):
+    def runsql(self, filepath: str) -> tuple[list, list] | tuple[bool, bool]:
         try:
             with open(filepath, "r", encoding="utf-8") as f:
                 sql = f.read()

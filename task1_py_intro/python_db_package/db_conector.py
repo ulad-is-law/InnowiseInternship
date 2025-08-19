@@ -2,7 +2,7 @@ import psycopg2
 
 
 class Db_connector:
-    def __init__(self, db_params):
+    def __init__(self, db_params: dict):
         self.db_params = db_params
         self.connection = None
 
@@ -21,5 +21,5 @@ class Db_connector:
         else:
             print("There is no conection to close")
 
-    def get_connection(self):
+    def get_connection(self) -> dict:
         return self.connection
