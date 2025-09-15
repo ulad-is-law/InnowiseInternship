@@ -1,0 +1,32 @@
+import psycopg2
+
+
+class QueryRunner:
+    def __init__(self, connection: dict):
+        self.connection = connection
+
+    def runsql(self, filepath: str) -> tuple[list, list] | tuple[bool, bool]:
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                sql = f.read()
+        except FileNotFoundError:
+            print(f"FIle '{filepath}' not found.")
+            raise
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(sql)
+
+                if cursor.description:
+                    result = cursor.fetchall()
+                    column_names = [desc[0] for desc in cursor.description]
+                    print(f"Query {filepath} ran succesfully")
+                    return result, column_names
+                else:
+                    self.connection.commit()
+                    print(f"Query '{filepath}' (COMMIT) ran successfully")
+                    return True, True
+
+        except (Exception, psycopg2.DatabaseError) as e:
+            self.connection.rollback()
+            print(f"SQL Error: {e}")
+            raise

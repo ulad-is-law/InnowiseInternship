@@ -1,0 +1,5 @@
+DB_HOST="localhost"
+DB_NAME="examplename"
+DB_USER="username"
+DB_PASSWORD="1111"
+DB_PORT="8888"
