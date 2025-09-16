@@ -5,3 +5,5 @@ __pycache__/
 pyvenv.cfg
 json_results/*
 .env
+db_venv/
+pd_venv/
